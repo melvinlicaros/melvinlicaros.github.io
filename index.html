@@ -54,6 +54,146 @@
   }
   .nav-links a:hover { color: var(--accent); }
 
+  /* ── PROJECTS ── */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+
+  .project-card {
+    background: var(--surface);
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    transition: all 0.3s;
+    border: 1.5px solid transparent;
+    display: flex; flex-direction: column;
+  }
+
+  .project-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--accent);
+    box-shadow: 0 12px 32px rgba(26,107,255,0.12);
+  }
+
+  .project-thumb {
+    height: 140px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 48px;
+  }
+
+  .project-thumb.blue { background: linear-gradient(135deg, #dbeafe, #bfdbfe); }
+  .project-thumb.purple { background: linear-gradient(135deg, #ede9fe, #ddd6fe); }
+  .project-thumb.green { background: linear-gradient(135deg, #d1fae5, #a7f3d0); }
+  .project-thumb.orange { background: linear-gradient(135deg, #fef3c7, #fde68a); }
+  .project-thumb.dark { background: linear-gradient(135deg, #1e1b4b, #312e81); font-size: 40px; }
+
+  .project-body { padding: 24px; flex: 1; display: flex; flex-direction: column; }
+  .project-type {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px; color: var(--accent); letter-spacing: 0.1em;
+    text-transform: uppercase; margin-bottom: 8px; font-weight: 500;
+  }
+  .project-title { font-size: 17px; font-weight: 700; margin-bottom: 10px; line-height: 1.3; }
+  .project-desc { font-size: 14px; color: var(--ink-muted); line-height: 1.6; flex: 1; }
+  .project-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 16px; }
+  .project-link {
+    display: inline-flex; align-items: center; gap: 6px;
+    margin-top: 16px; font-size: 13px; font-weight: 600;
+    color: var(--accent); text-decoration: none;
+  }
+  .project-link:hover { text-decoration: underline; }
+
+  /* ── EDUCATION ── */
+  .edu-item {
+    display: grid; grid-template-columns: 200px 1fr;
+    gap: 48px; padding: 36px 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  .edu-item:last-child { border-bottom: none; }
+  .edu-degree { font-size: 20px; font-weight: 700; margin-bottom: 4px; }
+  .edu-school { font-size: 14px; color: var(--ink-muted); margin-bottom: 4px; }
+  .edu-period { font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--ink-muted); }
+
+  /* ── CERTIFICATIONS ── */
+  .certs-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+
+  .cert-card {
+    background: var(--surface);
+    border-radius: var(--radius);
+    padding: 24px 28px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    display: flex; align-items: flex-start; gap: 16px;
+    border: 1.5px solid transparent;
+    transition: all 0.25s;
+  }
+
+  .cert-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 28px rgba(26,107,255,0.1);
+  }
+
+  .cert-badge {
+    width: 48px; height: 48px; border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px; flex-shrink: 0;
+  }
+
+  .cert-badge.udemy { background: #a435f020; }
+  .cert-badge.mosh { background: #ec489920; }
+  .cert-badge.six-sigma { background: #0596690f; }
+
+  .cert-issuer {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px; color: var(--ink-muted);
+    text-transform: uppercase; letter-spacing: 0.08em;
+    margin-bottom: 4px;
+  }
+
+  .cert-name {
+    font-size: 15px; font-weight: 700; color: var(--ink);
+    line-height: 1.3; margin-bottom: 6px;
+  }
+
+  .cert-date {
+    font-size: 13px; color: var(--ink-muted);
+  }
+
+  .cert-skills { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+
+  /* ── In-progress cert ── */
+  .cert-card.in-progress { border-color: var(--claude-orange); background: linear-gradient(180deg, #fffdf8, #fff); }
+  .progress-badge {
+    display: inline-block;
+    background: var(--claude-orange-soft); color: var(--claude-orange);
+    font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 99px;
+    letter-spacing: 0.03em; margin-bottom: 6px;
+  }
+  .progress-track {
+    height: 6px; background: var(--surface-warm); border-radius: 99px;
+    margin-top: 12px; overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%; background: var(--claude-orange); border-radius: 99px;
+    width: 50%;
+  }
+  .progress-text { font-size: 12px; color: var(--ink-muted); margin-top: 6px; }
+
+  @media (max-width: 900px) {
+    .certs-grid { grid-template-columns: 1fr; }
+  }
+
+  @media (max-width: 900px) {
+    .projects-grid { grid-template-columns: 1fr; }
+    .edu-item { grid-template-columns: 1fr; gap: 8px; }
+  }
+
   /* ── HERO ── */
   .hero {
     min-height: 100vh;
@@ -423,8 +563,10 @@
   <div class="nav-logo">Melvin Licaros</div>
   <ul class="nav-links">
     <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
     <li><a href="#claude">Claude AI</a></li>
     <li><a href="#experience">Experience</a></li>
+    <li><a href="#certifications">Certifications</a></li>
     <li><a href="#tools">Tools</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
@@ -439,7 +581,7 @@
         Turning data<br>into <span class="highlight">decisions.</span>
       </h1>
       <p class="hero-title">
-        Analytics professional with hands-on expertise in Power BI, Snowflake, and cloud data — and a growing specialisation in Claude AI and autonomous agent development.
+        I turn raw data into decisions that matter. Power BI, Snowflake, and cloud data are my daily tools. AI is my next frontier.
       </p>
       <div class="hero-cta">
         <a class="btn-primary" href="#contact">Get in touch</a>
@@ -556,7 +698,76 @@
   </div>
 </section>
 
-<!-- CLAUDE AI HIGHLIGHT -->
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-rule"></div>
+  <div class="section-label">What I've built</div>
+  <h2 class="section-heading">Featured Projects</h2>
+  <div class="projects-grid">
+
+    <div class="project-card">
+      <div class="project-thumb blue">📊</div>
+      <div class="project-body">
+        <div class="project-type">Power BI · Dashboard</div>
+        <div class="project-title">GoRewards Dashboard</div>
+        <div class="project-desc">A Power BI dashboard displaying daily ticketing volumes, ticket statuses, CSAT scores, agent productivity metrics, and SLA tracking for the GoRewards support team.</div>
+        <div class="project-tags">
+          <span class="tag">Power BI</span>
+          <span class="tag">Excel</span>
+          <span class="tag">SQL</span>
+        </div>
+        <a class="project-link" href="https://www.datascienceportfol.io/melvinlicaros/projects/0" target="_blank">View project →</a>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-thumb purple">🧱</div>
+      <div class="project-body">
+        <div class="project-type">Power BI · Interactive Report</div>
+        <div class="project-title">Interactive Lego Report</div>
+        <div class="project-desc">An interactive Power BI report exploring 4,000+ LEGO sets. Users can filter by theme, number of pieces, age range, and price using advanced visualisation tools.</div>
+        <div class="project-tags">
+          <span class="tag">Power BI</span>
+          <span class="tag">CSV</span>
+          <span class="tag">Data Viz</span>
+        </div>
+        <a class="project-link" href="https://www.datascienceportfol.io/melvinlicaros/projects/1" target="_blank">View project →</a>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-thumb green">📈</div>
+      <div class="project-body">
+        <div class="project-type">Looker Studio · SQL · Python</div>
+        <div class="project-title">Subscription Growth & Revenue Dashboard</div>
+        <div class="project-desc">A Looker Studio dashboard tracking subscription growth and revenue trends, built with SQL Server and Python for data processing and pipeline automation.</div>
+        <div class="project-tags">
+          <span class="tag">SQL Server</span>
+          <span class="tag">Python</span>
+          <span class="tag">Looker Studio</span>
+        </div>
+        <a class="project-link" href="https://www.datascienceportfol.io/melvinlicaros/projects/2" target="_blank">View project →</a>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-thumb orange">🚢</div>
+      <div class="project-body">
+        <div class="project-type">HTML · Chart.js · Dashboard</div>
+        <div class="project-title">Titanic Passenger Dashboard</div>
+        <div class="project-desc">An interactive dashboard analysing Titanic passenger data, showing survival rates by class, gender, and age group with KPI cards, filterable charts, and a detailed breakdown table. Built using the Claude Code MCP server connected to Power BI to generate and refine the analysis.</div>
+        <div class="project-tags">
+          <span class="tag">Claude Code</span>
+          <span class="tag">MCP Server</span>
+          <span class="tag">Power BI</span>
+          <span class="tag">Chart.js</span>
+        </div>
+        <a class="project-link" href="https://melvinlicaros.github.io/titanic.html" target="_blank">View dashboard →</a>
+      </div>
+    </div>
+
+  </div>
+</section>
 <div style="padding:0 48px;max-width:1280px;margin:0 auto 0;">
   <section id="claude" style="padding:0;max-width:100%;margin:0;">
     <div class="claude-inner">
@@ -613,17 +824,38 @@
 
     <div class="exp-item">
       <div>
-        <div class="exp-period">Current</div>
+        <div class="exp-period">2023 – Present</div>
       </div>
       <div>
-        <div class="exp-company">Current Role</div>
-        <div class="exp-role">Data & Analytics</div>
+        <div class="exp-company">Data Analyst</div>
+        <div class="exp-role">Current Role</div>
         <ul class="exp-bullets">
-          <li>Delivering analytics and reporting solutions across Power BI and Snowflake for multi-brand clients</li>
-          <li>Building social commerce analytics workflows — tracking performance, flagging missing data, and formatting outputs across brands and dates</li>
-          <li>Diagnosing complex business cost structures and performance issues through structured data analysis</li>
-          <li>Troubleshooting and resolving Power BI–Snowflake connectivity challenges including MFA authentication</li>
+          <li>Writing SQL queries to pull data from multiple sources, clean it up, and get it ready for reporting</li>
+          <li>Building Power BI dashboards and reports that give stakeholders a clear picture of what's happening in the business</li>
+          <li>Working with Snowflake and dbt to manage data pipelines and keep the warehouse organised and performant</li>
+          <li>Using Claude Code and ChatGPT day-to-day to speed up analysis, automate repetitive tasks, and solve tricky data problems faster</li>
         </ul>
+        <div class="skill-tags" style="margin-top:16px;">
+          <span class="tag">Power BI</span><span class="tag">SQL</span><span class="tag">Snowflake</span><span class="tag">dbt</span><span class="tag">Claude Code</span><span class="tag">ChatGPT</span><span class="tag">Python</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div>
+        <div class="exp-period">2017 – 2023</div>
+      </div>
+      <div>
+        <div class="exp-company">Reports Analyst II</div>
+        <div class="exp-role">Previous Role</div>
+        <ul class="exp-bullets">
+          <li>Automated recurring reports and data pipelines, reducing manual effort and saving significant time for the team</li>
+          <li>Set up ETL workflows, Power BI dashboards, and SQL scripts to streamline reporting processes</li>
+          <li>Built and maintained Tableau and Power BI dashboards for operational and business performance tracking</li>
+        </ul>
+        <div class="skill-tags" style="margin-top:16px;">
+          <span class="tag">Power BI</span><span class="tag">Tableau</span><span class="tag">SQL</span><span class="tag">Python</span><span class="tag">Excel</span>
+        </div>
       </div>
     </div>
 
@@ -635,10 +867,117 @@
         <div class="exp-company">Independent Learning</div>
         <div class="exp-role">AI & Automation Development</div>
         <ul class="exp-bullets">
-          <li>Pursuing advanced training in Claude AI tooling, autonomous agents, and business automation</li>
-          <li>Applying AI systems thinking to real-world data and analytics problems</li>
-          <li>Developing a practical specialisation at the intersection of data engineering and AI development</li>
+          <li>Learning Claude Code hands-on through a Udemy course covering plugins, skills, Cowork, and autonomous agents</li>
+          <li>Building small AI-powered tools and experimenting with ChatGPT and Gemini for different workflows</li>
+          <li>Applying what I learn directly to real data problems at work</li>
         </ul>
+        <div class="skill-tags" style="margin-top:16px;">
+          <span class="tag">Claude AI</span><span class="tag">Claude Code</span><span class="tag">ChatGPT</span><span class="tag">Gemini</span><span class="tag">MCP</span><span class="tag">Cowork</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="section-rule"></div>
+  <div class="section-label">Academic background</div>
+  <h2 class="section-heading">Education</h2>
+  <div class="experience-list">
+    <div class="edu-item">
+      <div>
+        <div class="edu-period">2002 – 2007</div>
+      </div>
+      <div>
+        <div class="edu-degree">BS Information Technology</div>
+        <div class="edu-school">Bachelor of Science in Information Technology</div>
+        <div class="edu-school">Holy Angel University · Angeles City, Philippines</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CERTIFICATIONS -->
+<section id="certifications">
+  <div class="section-rule"></div>
+  <div class="section-label">Credentials</div>
+  <h2 class="section-heading">Licenses & Certifications</h2>
+  <div class="certs-grid">
+
+    <div class="cert-card in-progress">
+      <div class="cert-badge mosh">🤖</div>
+      <div style="flex:1;">
+        <div class="progress-badge">IN PROGRESS</div>
+        <div class="cert-issuer">Udemy</div>
+        <div class="cert-name">Master Claude Code, Plugins & Skills to Build AI Applications, Automate Business with Cowork & Deploy Autonomous Agents</div>
+        <div class="cert-date">Started Jun 2026</div>
+        <div class="progress-track"><div class="progress-fill"></div></div>
+        <div class="progress-text">7 of 14 sessions completed · 50%</div>
+        <div class="cert-skills">
+          <span class="tag">Claude Code</span>
+          <span class="tag">Cowork</span>
+          <span class="tag">AI Agents</span>
+          <span class="tag">MCP</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="cert-card">
+      <div class="cert-badge udemy">🎓</div>
+      <div>
+        <div class="cert-issuer">Udemy</div>
+        <div class="cert-name">Hands-On High Performance SQL</div>
+        <div class="cert-date">Issued Apr 2025</div>
+        <div class="cert-skills">
+          <span class="tag">SQL</span>
+          <span class="tag">Query Optimization</span>
+          <span class="tag">Performance</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="cert-card">
+      <div class="cert-badge udemy">📊</div>
+      <div>
+        <div class="cert-issuer">Udemy</div>
+        <div class="cert-name">Microsoft Power BI Desktop for Business Intelligence</div>
+        <div class="cert-date">Issued Jul 2024</div>
+        <div class="cert-skills">
+          <span class="tag">Power BI</span>
+          <span class="tag">DAX</span>
+          <span class="tag">Data Visualization</span>
+          <span class="tag">Data Modeling</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="cert-card">
+      <div class="cert-badge six-sigma">✅</div>
+      <div>
+        <div class="cert-issuer">Six Sigma</div>
+        <div class="cert-name">Certified Lean Six Sigma White Belt</div>
+        <div class="cert-date">Issued Aug 2023</div>
+        <div class="cert-skills">
+          <span class="tag">Lean</span>
+          <span class="tag">Process Improvement</span>
+          <span class="tag">Six Sigma</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="cert-card">
+      <div class="cert-badge mosh">💻</div>
+      <div>
+        <div class="cert-issuer">Code with Mosh</div>
+        <div class="cert-name">Complete SQL Mastery</div>
+        <div class="cert-date">Issued Oct 2022</div>
+        <div class="cert-skills">
+          <span class="tag">SQL</span>
+          <span class="tag">Database Design</span>
+          <span class="tag">Querying</span>
+        </div>
       </div>
     </div>
 
@@ -653,16 +992,20 @@
     <div class="tools-grid">
       <div class="tool-chip"><span class="tool-chip-icon">📊</span> Power BI</div>
       <div class="tool-chip"><span class="tool-chip-icon">❄️</span> Snowflake</div>
-      <div class="tool-chip"><span class="tool-chip-icon">🛒</span> Social Commerce</div>
+      <div class="tool-chip"><span class="tool-chip-icon">🔁</span> dbt</div>
+      <div class="tool-chip"><span class="tool-chip-icon">🔍</span> Looker Studio</div>
+      <div class="tool-chip"><span class="tool-chip-icon">📉</span> Tableau</div>
       <div class="tool-chip"><span class="tool-chip-icon">🤖</span> Claude AI</div>
       <div class="tool-chip"><span class="tool-chip-icon">💻</span> Claude Code</div>
+      <div class="tool-chip"><span class="tool-chip-icon">💬</span> ChatGPT</div>
+      <div class="tool-chip"><span class="tool-chip-icon">✨</span> Gemini</div>
       <div class="tool-chip"><span class="tool-chip-icon">⚙️</span> Cowork</div>
       <div class="tool-chip"><span class="tool-chip-icon">🔌</span> MCP Servers</div>
       <div class="tool-chip"><span class="tool-chip-icon">🗄️</span> SQL</div>
+      <div class="tool-chip"><span class="tool-chip-icon">🐍</span> Python</div>
       <div class="tool-chip"><span class="tool-chip-icon">📐</span> DAX</div>
-      <div class="tool-chip"><span class="tool-chip-icon">📋</span> Data Modeling</div>
-      <div class="tool-chip"><span class="tool-chip-icon">🔄</span> ETL Pipelines</div>
-      <div class="tool-chip"><span class="tool-chip-icon">📁</span> Excel / Sheets</div>
+      <div class="tool-chip"><span class="tool-chip-icon">🔄</span> Data Pipelines</div>
+      <div class="tool-chip"><span class="tool-chip-icon">📁</span> Excel</div>
     </div>
   </div>
 </section>
@@ -675,14 +1018,14 @@
     Whether you need sharp data analytics, Power BI dashboards, or want to explore AI-powered automation for your business — I'd love to hear from you.
   </p>
   <div class="contact-links">
-    <a class="btn-primary" href="mailto:hello@example.com">✉ Send an email</a>
-    <a class="btn-outline" href="https://linkedin.com" target="_blank">LinkedIn →</a>
+    <a class="btn-primary" href="mailto:melvinlicaros@gmail.com">✉ Send an email</a>
+    <a class="btn-outline" href="https://www.linkedin.com/in/melvin-licaros-1a0653109/" target="_blank">LinkedIn →</a>
   </div>
 </div>
 
 <!-- FOOTER -->
 <footer>
-  <span>© 2025 Melvs — Data &amp; Analytics · Claude AI Specialist</span>
+  <span>© 2026 Melvin Licaros — Data Analyst · Claude AI Specialist</span>
 </footer>
 
 </body>
