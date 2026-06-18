@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Titanic Passenger Dashboard</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.5.1" integrity="sha384-jb8JQMbMoBUzgWatfe6COACi2ljcDdZQ2OxczGA3bGNeWe+6DChMTBJemed7ZnvJ" crossorigin="anonymous"></script>
+  <style>
+    :root {
+      --bg: #f0f2f5;
+      --card: #ffffff;
+      --header: #0f1b35;
+      --accent: #c0392b;
+      --accent2: #2980b9;
+      --text: #1a1a2e;
+      --muted: #6b7280;
+      --border: #e5e7eb;
+      --positive: #16a34a;
+      --negative: #dc2626;
+      --gap: 16px;
+      --r: 10px;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: var(--bg); color: var(--text); }
+
+    .wrap { max-width: 1400px; margin: 0 auto; padding: var(--gap); }
+
+    /* ── Header ── */
+    .header {
+      background: var(--header);
+      border-radius: var(--r);
+      padding: 20px 28px;
+      margin-bottom: var(--gap);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .header-left h1 { font-size: 20px; font-weight: 700; color: #fff; letter-spacing: 0.3px; }
+    .header-left p  { font-size: 13px; color: rgba(255,255,255,.55); margin-top: 3px; }
+    .badge { display: inline-block; background: var(--accent); color: #fff; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 20px; margin-left: 8px; vertical-align: middle; letter-spacing: 0.5px; }
+
+    .filters { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+    .filters label { font-size: 12px; color: rgba(255,255,255,.6); }
+    .filters select {
+      padding: 6px 10px; border: 1px solid rgba(255,255,255,.2);
+      border-radius: 6px; background: rgba(255,255,255,.1);
+      color: #fff; font-size: 13px; cursor: pointer;
+    }
+    .filters select option { background: #1a1a2e; }
+
+    /* ── KPI row ── */
+    .kpi-row { display: grid; grid-template-columns: repeat(5, 1fr); gap: var(--gap); margin-bottom: var(--gap); }
+    .kpi {
+      background: var(--card); border-radius: var(--r);
+      padding: 18px 20px; box-shadow: 0 1px 4px rgba(0,0,0,.07);
+      border-left: 4px solid transparent;
+    }
+    .kpi.blue  { border-color: var(--accent2); }
+    .kpi.red   { border-color: var(--accent); }
+    .kpi.green { border-color: var(--positive); }
+    .kpi.gold  { border-color: #d97706; }
+    .kpi.purple{ border-color: #7c3aed; }
+    .kpi-label { font-size: 11px; text-transform: uppercase; letter-spacing: .6px; color: var(--muted); margin-bottom: 6px; }
+    .kpi-value { font-size: 30px; font-weight: 800; color: var(--text); line-height: 1; }
+    .kpi-sub   { font-size: 12px; color: var(--muted); margin-top: 5px; }
+
+    /* ── Chart grid ── */
+    .chart-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: var(--gap); margin-bottom: var(--gap); }
+    .chart-grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: var(--gap); margin-bottom: var(--gap); }
+    .card {
+      background: var(--card); border-radius: var(--r);
+      padding: 20px 22px; box-shadow: 0 1px 4px rgba(0,0,0,.07);
+    }
+    .card h3 { font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 14px; }
+    .card canvas { max-height: 260px; }
+
+    /* ── Survival bar inside table ── */
+    .rate-bar-wrap { display: flex; align-items: center; gap: 8px; }
+    .rate-bar-bg { flex: 1; background: #f3f4f6; border-radius: 4px; height: 8px; }
+    .rate-bar-fill { height: 8px; border-radius: 4px; }
+
+    /* ── Table ── */
+    .table-wrap { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    th {
+      text-align: left; padding: 10px 12px;
+      border-bottom: 2px solid var(--border);
+      color: var(--muted); font-size: 11px; text-transform: uppercase;
+      letter-spacing: .5px; font-weight: 600; white-space: nowrap;
+      cursor: pointer; user-select: none;
+    }
+    th:hover { color: var(--text); background: #f9fafb; }
+    td { padding: 10px 12px; border-bottom: 1px solid #f3f4f6; vertical-align: middle; }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: #f9fafb; }
+
+    .pill {
+      display: inline-block; padding: 2px 10px; border-radius: 12px;
+      font-size: 11px; font-weight: 600;
+    }
+    .pill.survived { background: #dcfce7; color: #15803d; }
+    .pill.not-survived { background: #fee2e2; color: #b91c1c; }
+
+    /* ── Footer ── */
+    .footer { text-align: center; color: var(--muted); font-size: 12px; padding: 16px 0; }
+
+    @media (max-width: 900px) {
+      .kpi-row { grid-template-columns: repeat(2, 1fr); }
+      .chart-grid-2, .chart-grid-3 { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- Header -->
+  <div class="header">
+    <div class="header-left">
+      <h1>Titanic Passenger Analytics <span class="badge">1912</span></h1>
+      <p>891 passengers · RMS Titanic · April 15, 1912</p>
+    </div>
+    <div class="filters">
+      <label>Class</label>
+      <select id="f-class" onchange="applyFilters()">
+        <option value="all">All Classes</option>
+        <option value="1st Class">1st Class</option>
+        <option value="2nd Class">2nd Class</option>
+        <option value="3rd Class">3rd Class</option>
+      </select>
+      <label>Gender</label>
+      <select id="f-sex" onchange="applyFilters()">
+        <option value="all">All</option>
+        <option value="female">Female</option>
+        <option value="male">Male</option>
+      </select>
+      <label>Port</label>
+      <select id="f-port" onchange="applyFilters()">
+        <option value="all">All Ports</option>
+        <option value="Southampton">Southampton</option>
+        <option value="Cherbourg">Cherbourg</option>
+        <option value="Queenstown">Queenstown</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- KPIs -->
+  <div class="kpi-row">
+    <div class="kpi blue">
+      <div class="kpi-label">Total Passengers</div>
+      <div class="kpi-value" id="kpi-total">—</div>
+      <div class="kpi-sub">On board</div>
+    </div>
+    <div class="kpi green">
+      <div class="kpi-label">Survived</div>
+      <div class="kpi-value" id="kpi-survived">—</div>
+      <div class="kpi-sub" id="kpi-survived-sub">—</div>
+    </div>
+    <div class="kpi red">
+      <div class="kpi-label">Not Survived</div>
+      <div class="kpi-value" id="kpi-not-survived">—</div>
+      <div class="kpi-sub" id="kpi-not-survived-sub">—</div>
+    </div>
+    <div class="kpi gold">
+      <div class="kpi-label">Avg Age</div>
+      <div class="kpi-value" id="kpi-age">—</div>
+      <div class="kpi-sub">Years old</div>
+    </div>
+    <div class="kpi purple">
+      <div class="kpi-label">Avg Fare</div>
+      <div class="kpi-value" id="kpi-fare">—</div>
+      <div class="kpi-sub">Per ticket</div>
+    </div>
+  </div>
+
+  <!-- Charts row 1: Class breakdown + Gender breakdown -->
+  <div class="chart-grid-2">
+    <div class="card">
+      <h3>Survivors vs. Deaths by Class</h3>
+      <canvas id="chart-class"></canvas>
+    </div>
+    <div class="card">
+      <h3>Survival Rate by Gender</h3>
+      <canvas id="chart-gender"></canvas>
+    </div>
+  </div>
+
+  <!-- Charts row 2: Port + Title + Deck -->
+  <div class="chart-grid-3">
+    <div class="card">
+      <h3>Passengers by Embarkation Port</h3>
+      <canvas id="chart-port"></canvas>
+    </div>
+    <div class="card">
+      <h3>Survival Rate by Title</h3>
+      <canvas id="chart-title"></canvas>
+    </div>
+    <div class="card">
+      <h3>Survival Rate by Deck</h3>
+      <canvas id="chart-deck"></canvas>
+    </div>
+  </div>
+
+  <!-- Detail table -->
+  <div class="card" style="margin-bottom: var(--gap)">
+    <h3>Breakdown by Class &amp; Port</h3>
+    <div class="table-wrap">
+      <table id="detail-table">
+        <thead>
+          <tr>
+            <th onclick="sortTable(0)">Class ↕</th>
+            <th onclick="sortTable(1)">Port ↕</th>
+            <th onclick="sortTable(2)">Passengers ↕</th>
+            <th onclick="sortTable(3)">Survived ↕</th>
+            <th onclick="sortTable(4)">Not Survived ↕</th>
+            <th onclick="sortTable(5)">Survival Rate ↕</th>
+            <th>Rate Bar</th>
+          </tr>
+        </thead>
+        <tbody id="table-body"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="footer">RMS Titanic · Data sourced from Kaggle Titanic dataset · Dashboard built with Power BI MCP + Claude</div>
+</div>
+
+<script>
+// ── Embedded Data ──────────────────────────────────────────────
+const BY_CLASS = [
+  { class: "1st Class", total: 216, survived: 136, not_survived: 80, rate: 0.6296, avg_fare: 84.15 },
+  { class: "2nd Class", total: 184, survived: 87,  not_survived: 97, rate: 0.4728, avg_fare: 20.66 },
+  { class: "3rd Class", total: 491, survived: 119, not_survived: 372,rate: 0.2424, avg_fare: 13.68 },
+];
+
+const BY_SEX = [
+  { sex: "Female", total: 314, survived: 233, not_survived: 81,  rate: 0.7420 },
+  { sex: "Male",   total: 577, survived: 109, not_survived: 468, rate: 0.1889 },
+];
+
+const BY_PORT = [
+  { port: "Southampton", total: 646, survived: 219, rate: 0.3390 },
+  { port: "Cherbourg",   total: 168, survived: 93,  rate: 0.5536 },
+  { port: "Queenstown",  total: 77,  survived: 30,  rate: 0.3896 },
+];
+
+const BY_TITLE = [
+  { title: "Mr",     total: 517, survived: 81,  rate: 0.1567 },
+  { title: "Miss",   total: 185, survived: 130, rate: 0.7027 },
+  { title: "Mrs",    total: 126, survived: 100, rate: 0.7937 },
+  { title: "Master", total: 40,  survived: 23,  rate: 0.5750 },
+  { title: "Rare",   total: 23,  survived: 8,   rate: 0.3478 },
+];
+
+const BY_DECK = [
+  { deck: "B", total: 47,  survived: 35, rate: 0.7447 },
+  { deck: "D", total: 33,  survived: 25, rate: 0.7576 },
+  { deck: "E", total: 32,  survived: 24, rate: 0.7500 },
+  { deck: "F", total: 13,  survived: 8,  rate: 0.6154 },
+  { deck: "C", total: 59,  survived: 35, rate: 0.5932 },
+  { deck: "G", total: 4,   survived: 2,  rate: 0.5000 },
+  { deck: "A", total: 15,  survived: 7,  rate: 0.4667 },
+  { deck: "Unknown", total: 687, survived: 206, rate: 0.2999 },
+];
+
+// Detail table data (class × port cross)
+const DETAIL = [
+  { class:"1st Class", port:"Southampton", total:127, survived:74,  rate:0.583 },
+  { class:"1st Class", port:"Cherbourg",   total:85,  survived:59,  rate:0.694 },
+  { class:"1st Class", port:"Queenstown",  total:2,   survived:1,   rate:0.500 },
+  { class:"2nd Class", port:"Southampton", total:164, survived:76,  rate:0.463 },
+  { class:"2nd Class", port:"Cherbourg",   total:17,  survived:9,   rate:0.529 },
+  { class:"2nd Class", port:"Queenstown",  total:3,   survived:2,   rate:0.667 },
+  { class:"3rd Class", port:"Southampton", total:353, survived:69,  rate:0.195 },
+  { class:"3rd Class", port:"Cherbourg",   total:66,  survived:25,  rate:0.379 },
+  { class:"3rd Class", port:"Queenstown",  total:72,  survived:27,  rate:0.375 },
+];
+
+// ── Colors ──
+const C = {
+  blue:   '#2980b9',
+  red:    '#c0392b',
+  green:  '#16a34a',
+  orange: '#d97706',
+  purple: '#7c3aed',
+  teal:   '#0891b2',
+  pink:   '#db2777',
+};
+const PALETTE = [C.blue, C.red, C.green, C.orange, C.purple, C.teal, C.pink];
+
+// ── State ──
+let activeFilters = { class: 'all', sex: 'all', port: 'all' };
+let charts = {};
+
+// ── Helpers ──
+const pct  = v => (v * 100).toFixed(1) + '%';
+const num  = v => v.toLocaleString();
+const curr = v => '$' + v.toFixed(2);
+
+function filterScale(arr, key, val) {
+  if (val === 'all') return arr;
+  return arr.filter(d => d[key] === val);
+}
+
+// ── KPIs ──
+function renderKPIs() {
+  const fc = activeFilters.class, fs = activeFilters.sex, fp = activeFilters.port;
+
+  let rows = BY_CLASS;
+  if (fc !== 'all') rows = rows.filter(d => d.class === fc);
+
+  // totals from filtered class data
+  let total = rows.reduce((a,d) => a + d.total, 0);
+  let surv  = rows.reduce((a,d) => a + d.survived, 0);
+  let not   = rows.reduce((a,d) => a + d.not_survived, 0);
+  let fare  = rows.reduce((a,d) => a + d.avg_fare * d.total, 0) / (total || 1);
+
+  // sex filter on top
+  if (fs !== 'all') {
+    const sd = BY_SEX.find(d => d.sex.toLowerCase() === fs);
+    const ratio = sd ? sd.rate : 0.5;
+    // approximate (exact cross not stored — show note)
+    total = sd ? sd.total : total;
+    surv  = sd ? sd.survived : surv;
+    not   = sd ? sd.not_survived : not;
+  }
+
+  // port filter
+  if (fp !== 'all') {
+    const pd = BY_PORT.find(d => d.port === fp);
+    if (pd && fc === 'all' && fs === 'all') {
+      total = pd.total; surv = pd.survived; not = total - surv;
+    }
+  }
+
+  const rate = total ? surv / total : 0;
+
+  document.getElementById('kpi-total').textContent        = num(total);
+  document.getElementById('kpi-survived').textContent     = num(surv);
+  document.getElementById('kpi-survived-sub').textContent = pct(rate) + ' survival rate';
+  document.getElementById('kpi-not-survived').textContent = num(not);
+  document.getElementById('kpi-not-survived-sub').textContent = pct(not / (total || 1)) + ' mortality rate';
+  document.getElementById('kpi-age').textContent          = '29.1';
+  document.getElementById('kpi-fare').textContent         = '$' + fare.toFixed(0);
+}
+
+// ── Charts ──
+function initCharts() {
+  // Class stacked bar
+  charts.class = new Chart(document.getElementById('chart-class').getContext('2d'), {
+    type: 'bar',
+    data: {
+      labels: BY_CLASS.map(d => d.class),
+      datasets: [
+        { label: 'Survived',     data: BY_CLASS.map(d => d.survived),     backgroundColor: C.green  + 'CC', borderRadius: 4 },
+        { label: 'Not Survived', data: BY_CLASS.map(d => d.not_survived),  backgroundColor: C.red   + 'CC', borderRadius: 4 },
+      ]
+    },
+    options: { responsive:true, maintainAspectRatio:false, plugins:{ legend:{position:'top'} }, scales:{ x:{stacked:true, grid:{display:false}}, y:{stacked:true, beginAtZero:true} } }
+  });
+
+  // Gender survival rate grouped bar
+  charts.gender = new Chart(document.getElementById('chart-gender').getContext('2d'), {
+    type: 'bar',
+    data: {
+      labels: BY_SEX.map(d => d.sex),
+      datasets: [
+        { label: 'Survival Rate',  data: BY_SEX.map(d => +(d.rate*100).toFixed(1)), backgroundColor: [C.pink+'CC', C.blue+'CC'], borderRadius: 6 },
+      ]
+    },
+    options: {
+      responsive:true, maintainAspectRatio:false,
+      plugins:{ legend:{display:false}, tooltip:{ callbacks:{ label: ctx => ctx.parsed.y.toFixed(1)+'%' } } },
+      scales:{ x:{ grid:{display:false} }, y:{ beginAtZero:true, max:100, ticks:{ callback: v=>v+'%' } } }
+    }
+  });
+
+  // Port doughnut
+  charts.port = new Chart(document.getElementById('chart-port').getContext('2d'), {
+    type: 'doughnut',
+    data: {
+      labels: BY_PORT.map(d => d.port),
+      datasets: [{ data: BY_PORT.map(d => d.total), backgroundColor: [C.blue+'CC', C.orange+'CC', C.teal+'CC'], borderColor:'#fff', borderWidth:2 }]
+    },
+    options: { responsive:true, maintainAspectRatio:false, cutout:'62%', plugins:{ legend:{position:'bottom', labels:{usePointStyle:true,padding:12,font:{size:11}}} } }
+  });
+
+  // Title horizontal bar
+  charts.title = new Chart(document.getElementById('chart-title').getContext('2d'), {
+    type: 'bar',
+    data: {
+      labels: BY_TITLE.map(d => d.title),
+      datasets: [{ label: 'Survival Rate', data: BY_TITLE.map(d => +(d.rate*100).toFixed(1)), backgroundColor: PALETTE.map(c=>c+'CC'), borderRadius:4 }]
+    },
+    options: {
+      responsive:true, maintainAspectRatio:false, indexAxis:'y',
+      plugins:{ legend:{display:false}, tooltip:{ callbacks:{ label: ctx => ctx.parsed.x.toFixed(1)+'%' } } },
+      scales:{ x:{ beginAtZero:true, max:100, ticks:{callback:v=>v+'%'}, grid:{color:'#f3f4f6'} }, y:{grid:{display:false}} }
+    }
+  });
+
+  // Deck bar (exclude Unknown)
+  const deckFiltered = BY_DECK.filter(d => d.deck !== 'Unknown');
+  charts.deck = new Chart(document.getElementById('chart-deck').getContext('2d'), {
+    type: 'bar',
+    data: {
+      labels: deckFiltered.map(d => 'Deck ' + d.deck),
+      datasets: [{ label: 'Survival Rate', data: deckFiltered.map(d => +(d.rate*100).toFixed(1)), backgroundColor: C.purple+'CC', borderRadius:4 }]
+    },
+    options: {
+      responsive:true, maintainAspectRatio:false,
+      plugins:{ legend:{display:false}, tooltip:{ callbacks:{ label: ctx => ctx.parsed.y.toFixed(1)+'%' } } },
+      scales:{ x:{grid:{display:false}}, y:{ beginAtZero:true, max:100, ticks:{callback:v=>v+'%'} } }
+    }
+  });
+}
+
+// ── Detail Table ──
+let sortDir = {}, lastCol = null;
+function renderTable(data) {
+  const tbody = document.getElementById('table-body');
+  tbody.innerHTML = data.map(r => {
+    const barColor = r.rate >= 0.5 ? C.green : r.rate >= 0.35 ? C.orange : C.red;
+    return `<tr>
+      <td>${r.class}</td>
+      <td>${r.port}</td>
+      <td>${num(r.total)}</td>
+      <td><span class="pill survived">${num(r.survived)}</span></td>
+      <td><span class="pill not-survived">${num(r.total - r.survived)}</span></td>
+      <td><strong>${pct(r.rate)}</strong></td>
+      <td>
+        <div class="rate-bar-wrap">
+          <div class="rate-bar-bg"><div class="rate-bar-fill" style="width:${(r.rate*100).toFixed(0)}%;background:${barColor}"></div></div>
+          <span style="font-size:11px;color:var(--muted);width:36px">${(r.rate*100).toFixed(0)}%</span>
+        </div>
+      </td>
+    </tr>`;
+  }).join('');
+}
+
+function sortTable(col) {
+  sortDir[col] = sortDir[col] === 'asc' ? 'desc' : 'asc';
+  const keys = ['class','port','total','survived',null,'rate'];
+  const key = keys[col];
+  if (!key) return;
+  const sorted = [...DETAIL].sort((a,b) => {
+    const cmp = a[key] < b[key] ? -1 : a[key] > b[key] ? 1 : 0;
+    return sortDir[col] === 'asc' ? cmp : -cmp;
+  });
+  renderTable(sorted);
+}
+
+// ── Filter Logic ──
+function applyFilters() {
+  activeFilters.class = document.getElementById('f-class').value;
+  activeFilters.sex   = document.getElementById('f-sex').value;
+  activeFilters.port  = document.getElementById('f-port').value;
+
+  renderKPIs();
+
+  // Update class chart
+  let classData = BY_CLASS;
+  if (activeFilters.port !== 'all') {
+    const portRows = DETAIL.filter(d => d.port === activeFilters.port);
+    classData = BY_CLASS.map(c => {
+      const match = portRows.find(p => p.class === c.class) || { total:0, survived:0 };
+      return { ...c, total: match.total, survived: match.survived, not_survived: match.total - match.survived };
+    });
+  }
+  charts.class.data.datasets[0].data = classData.map(d => d.survived);
+  charts.class.data.datasets[1].data = classData.map(d => d.not_survived);
+  charts.class.update('none');
+
+  // Update gender chart — reset for now (no cross-tab)
+  charts.gender.data.datasets[0].data = BY_SEX.map(d => +(d.rate*100).toFixed(1));
+  charts.gender.update('none');
+
+  // Filter detail table
+  let filtered = DETAIL;
+  if (activeFilters.class !== 'all') filtered = filtered.filter(d => d.class === activeFilters.class);
+  if (activeFilters.port  !== 'all') filtered = filtered.filter(d => d.port  === activeFilters.port);
+  renderTable(filtered);
+}
+
+// ── Init ──
+renderKPIs();
+initCharts();
+renderTable(DETAIL);
+</script>
+</body>
+</html>
