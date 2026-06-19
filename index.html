@@ -185,6 +185,13 @@
   }
   .progress-text { font-size: 12px; color: var(--ink-muted); margin-top: 6px; }
 
+  .cert-link {
+    display: inline-flex; align-items: center; gap: 5px;
+    margin-top: 10px; font-size: 12px; font-weight: 600;
+    color: var(--accent); text-decoration: none;
+  }
+  .cert-link:hover { text-decoration: underline; }
+
   @media (max-width: 900px) {
     .certs-grid { grid-template-columns: 1fr; }
   }
@@ -581,7 +588,7 @@
         Turning data<br>into <span class="highlight">decisions.</span>
       </h1>
       <p class="hero-title">
-        I turn raw data into decisions that matter. Power BI, Snowflake, and cloud data are my daily tools. AI is my next frontier.
+        I turn raw data into decisions that matter. Power BI, SQL, Python, Snowflake, and dbt are my daily tools, now paired with AI to push analytics and decision-making further.
       </p>
       <div class="hero-cta">
         <a class="btn-primary" href="#contact">Get in touch</a>
@@ -721,32 +728,34 @@
     </div>
 
     <div class="project-card">
-      <div class="project-thumb purple">🧱</div>
+      <div class="project-thumb purple">📑</div>
       <div class="project-body">
-        <div class="project-type">Power BI · Interactive Report</div>
-        <div class="project-title">Interactive Lego Report</div>
-        <div class="project-desc">An interactive Power BI report exploring 4,000+ LEGO sets. Users can filter by theme, number of pieces, age range, and price using advanced visualisation tools.</div>
+        <div class="project-type">Power BI · Sales Pipeline</div>
+        <div class="project-title">Loan Pipeline & Conversion Dashboard</div>
+        <div class="project-desc">A Power BI dashboard tracking loan production across the full pipeline, from file started to closing. Includes weekly production trends by units and UPB, a current loans breakdown by stage, and a conversion funnel with stage-by-stage drop-off and monthly comparisons.</div>
         <div class="project-tags">
           <span class="tag">Power BI</span>
-          <span class="tag">CSV</span>
-          <span class="tag">Data Viz</span>
+          <span class="tag">DAX</span>
+          <span class="tag">Funnel Analysis</span>
+          <span class="tag">KPI Tracking</span>
         </div>
-        <a class="project-link" href="https://www.datascienceportfol.io/melvinlicaros/projects/1" target="_blank">View project →</a>
+        <a class="project-link" href="https://melvinlicaros.github.io/pipeline.pdf" target="_blank">View dashboard →</a>
       </div>
     </div>
 
     <div class="project-card">
-      <div class="project-thumb green">📈</div>
+      <div class="project-thumb green">🤝</div>
       <div class="project-body">
-        <div class="project-type">Looker Studio · SQL · Python</div>
-        <div class="project-title">Subscription Growth & Revenue Dashboard</div>
-        <div class="project-desc">A Looker Studio dashboard tracking subscription growth and revenue trends, built with SQL Server and Python for data processing and pipeline automation.</div>
+        <div class="project-type">Power BI · BD & Outreach</div>
+        <div class="project-title">BD Referral Outreach & Activity Dashboard</div>
+        <div class="project-desc">A business development dashboard monitoring referral and outreach activity across regions. Tracks contact growth, site visits, active referrers, won admissions, top referral sources, an admission funnel by stage, and a BD rep scorecard for performance comparison.</div>
         <div class="project-tags">
-          <span class="tag">SQL Server</span>
-          <span class="tag">Python</span>
-          <span class="tag">Looker Studio</span>
+          <span class="tag">Power BI</span>
+          <span class="tag">BD Analytics</span>
+          <span class="tag">Referral Tracking</span>
+          <span class="tag">Scorecards</span>
         </div>
-        <a class="project-link" href="https://www.datascienceportfol.io/melvinlicaros/projects/2" target="_blank">View project →</a>
+        <a class="project-link" href="https://melvinlicaros.github.io/bd-dashboard.pdf" target="_blank">View dashboard →</a>
       </div>
     </div>
 
@@ -780,9 +789,9 @@
       </p>
 
       <div class="claude-course">
-        <div class="course-label">📚 Currently Enrolled</div>
-        <div class="course-name">Master Claude Code, Plugins and Skills to Build AI Applications, Automate Business With Cowork, Deploy Autonomous Agents</div>
-        <div class="course-platform">Udemy · In Progress · 2025</div>
+        <div class="course-label">🏆 Recently Completed</div>
+        <div class="course-name">The Complete Claude Code & Claude Cowork Masterclass</div>
+        <div class="course-platform">Udemy · Completed 2026</div>
       </div>
 
       <div class="claude-skills-grid">
@@ -906,21 +915,19 @@
   <h2 class="section-heading">Licenses & Certifications</h2>
   <div class="certs-grid">
 
-    <div class="cert-card in-progress">
-      <div class="cert-badge mosh">🤖</div>
-      <div style="flex:1;">
-        <div class="progress-badge">IN PROGRESS</div>
+    <div class="cert-card">
+      <div class="cert-badge mosh">✅</div>
+      <div>
         <div class="cert-issuer">Udemy</div>
-        <div class="cert-name">Master Claude Code, Plugins & Skills to Build AI Applications, Automate Business with Cowork & Deploy Autonomous Agents</div>
-        <div class="cert-date">Started Jun 2026</div>
-        <div class="progress-track"><div class="progress-fill"></div></div>
-        <div class="progress-text">7 of 14 sessions completed · 50%</div>
+        <div class="cert-name">The Complete Claude Code & Claude Cowork Masterclass</div>
+        <div class="cert-date">Completed Jun 2026</div>
         <div class="cert-skills">
           <span class="tag">Claude Code</span>
-          <span class="tag">Cowork</span>
-          <span class="tag">AI Agents</span>
-          <span class="tag">MCP</span>
+          <span class="tag">Claude Cowork</span>
+          <span class="tag">AI Workflows</span>
+          <span class="tag">Automation</span>
         </div>
+        <a class="cert-link" href="https://melvinlicaros.github.io/ClaudeCode.pdf" target="_blank">View certificate →</a>
       </div>
     </div>
 
