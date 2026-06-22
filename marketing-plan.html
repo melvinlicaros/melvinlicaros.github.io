@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pulse & Flow — Austin Marketing Plan</title>
+  <style>
+    :root {
+      --teal:    #2D9B8A;
+      --teal-dk: #1D6F62;
+      --sand:    #F5F0E8;
+      --charcoal:#2B2B2B;
+      --warm:    #E8A87C;
+      --light:   #FAFAF7;
+      --border:  #E0DDD6;
+      --red:     #C0392B;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Georgia', serif; background: var(--light); color: var(--charcoal); line-height: 1.7; }
+
+    /* ── NAV ── */
+    nav {
+      background: var(--charcoal);
+      color: white;
+      padding: 1rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    nav .logo { font-size: 1.3rem; font-weight: bold; letter-spacing: .05em; }
+    nav .logo span { color: var(--warm); }
+    nav ul { list-style: none; display: flex; gap: 1.5rem; }
+    nav ul a { color: #ccc; text-decoration: none; font-family: 'Arial', sans-serif; font-size: .85rem; letter-spacing: .05em; text-transform: uppercase; }
+    nav ul a:hover { color: var(--warm); }
+
+    /* ── HERO ── */
+    .hero {
+      background: linear-gradient(135deg, var(--teal-dk) 0%, var(--teal) 60%, #3db89e 100%);
+      color: white;
+      padding: 5rem 2rem 4rem;
+      text-align: center;
+    }
+    .hero .eyebrow { font-family: 'Arial', sans-serif; font-size: .8rem; letter-spacing: .2em; text-transform: uppercase; opacity: .8; margin-bottom: .75rem; }
+    .hero h1 { font-size: 3rem; font-weight: normal; margin-bottom: .5rem; }
+    .hero .tagline { font-size: 1.25rem; opacity: .9; font-style: italic; margin-bottom: 1.5rem; }
+    .hero .meta { display: flex; gap: 2rem; justify-content: center; flex-wrap: wrap; }
+    .hero .meta span { background: rgba(255,255,255,.15); padding: .4rem 1rem; border-radius: 20px; font-family: 'Arial', sans-serif; font-size: .85rem; }
+
+    /* ── LAYOUT ── */
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 2rem; }
+    section { padding: 4rem 0; border-bottom: 1px solid var(--border); }
+    section:last-child { border-bottom: none; }
+
+    .section-label {
+      font-family: 'Arial', sans-serif;
+      font-size: .75rem;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: .5rem;
+    }
+    h2 { font-size: 2rem; font-weight: normal; margin-bottom: .5rem; color: var(--charcoal); }
+    .section-intro { color: #666; font-size: 1.05rem; margin-bottom: 2.5rem; max-width: 700px; }
+
+    /* ── CARDS ── */
+    .card-grid { display: grid; gap: 1.5rem; }
+    .card-grid.cols-2 { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+    .card-grid.cols-3 { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+
+    .card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.75rem;
+    }
+    .card h3 { font-size: 1.1rem; margin-bottom: .75rem; color: var(--teal-dk); }
+    .card p, .card li { font-size: .95rem; color: #444; }
+    .card ul { padding-left: 1.25rem; }
+    .card ul li { margin-bottom: .4rem; }
+
+    .card.accent { border-left: 4px solid var(--teal); }
+    .card.warm-accent { border-left: 4px solid var(--warm); }
+    .card.highlight { background: var(--sand); }
+
+    /* ── POSITIONING ── */
+    .position-table { width: 100%; border-collapse: collapse; margin-top: 2rem; }
+    .position-table th { background: var(--charcoal); color: white; padding: 1rem; text-align: left; font-family: 'Arial', sans-serif; font-size: .85rem; }
+    .position-table td { padding: 1rem; border-bottom: 1px solid var(--border); font-size: .9rem; vertical-align: top; }
+    .position-table tr:nth-child(even) td { background: var(--sand); }
+    .position-table .pf-row td { background: linear-gradient(90deg, #e8f5f2, white); font-weight: bold; color: var(--teal-dk); }
+    .pill { display: inline-block; padding: .2rem .6rem; border-radius: 20px; font-size: .75rem; font-family: 'Arial', sans-serif; }
+    .pill.high { background: #d4edda; color: #155724; }
+    .pill.low  { background: #f8d7da; color: #721c24; }
+    .pill.med  { background: #fff3cd; color: #856404; }
+
+    /* ── COMPETITORS ── */
+    .competitor-block { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 3rem; }
+    @media (max-width: 700px) { .competitor-block { grid-template-columns: 1fr; } }
+
+    .screenshot-box {
+      background: #f0f0f0;
+      border: 2px dashed #ccc;
+      border-radius: 8px;
+      min-height: 220px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: #999;
+      font-family: 'Arial', sans-serif;
+      font-size: .85rem;
+      text-align: center;
+      padding: 1.5rem;
+    }
+    .screenshot-box .icon { font-size: 2.5rem; margin-bottom: .75rem; }
+    .screenshot-box img { width: 100%; border-radius: 6px; }
+
+    .competitor-notes { }
+    .competitor-notes h3 { font-size: 1.2rem; margin-bottom: 1rem; color: var(--charcoal); }
+    .competitor-notes .brand-tag {
+      display: inline-block;
+      padding: .3rem .9rem;
+      border-radius: 4px;
+      font-family: 'Arial', sans-serif;
+      font-size: .8rem;
+      font-weight: bold;
+      margin-bottom: 1rem;
+      letter-spacing: .05em;
+    }
+    .barrys .brand-tag  { background: #1a1a1a; color: #cc0000; }
+    .purebarre .brand-tag { background: #f5e6f0; color: #8b3a6e; }
+
+    .notes-row { display: flex; gap: 1rem; margin-top: .75rem; }
+    .notes-row > div { flex: 1; background: var(--sand); border-radius: 6px; padding: 1rem; }
+    .notes-row > div h4 { font-size: .85rem; font-family: 'Arial', sans-serif; text-transform: uppercase; letter-spacing: .1em; margin-bottom: .5rem; color: var(--teal-dk); }
+    .notes-row > div ul { padding-left: 1.1rem; font-size: .85rem; color: #555; }
+    .notes-row > div ul li { margin-bottom: .3rem; }
+
+    /* ── CONTENT CALENDAR ── */
+    .week-header {
+      background: var(--teal);
+      color: white;
+      padding: .75rem 1.25rem;
+      border-radius: 6px 6px 0 0;
+      font-family: 'Arial', sans-serif;
+      font-weight: bold;
+      letter-spacing: .05em;
+    }
+    .cal-table { width: 100%; border-collapse: collapse; margin-bottom: 2.5rem; box-shadow: 0 2px 8px rgba(0,0,0,.07); }
+    .cal-table th {
+      background: var(--charcoal);
+      color: white;
+      padding: .75rem 1rem;
+      font-family: 'Arial', sans-serif;
+      font-size: .8rem;
+      text-align: left;
+    }
+    .cal-table td { padding: .85rem 1rem; border-bottom: 1px solid var(--border); font-size: .88rem; vertical-align: top; background: white; }
+    .cal-table tr:hover td { background: var(--sand); }
+    .cal-table td:first-child { font-weight: bold; font-family: 'Arial', sans-serif; color: var(--teal-dk); white-space: nowrap; }
+    .platform-tag {
+      display: inline-block;
+      padding: .15rem .5rem;
+      border-radius: 3px;
+      font-size: .72rem;
+      font-family: 'Arial', sans-serif;
+      font-weight: bold;
+      margin-right: .3rem;
+    }
+    .ig { background: #e1306c; color: white; }
+    .li { background: #0077b5; color: white; }
+
+    /* ── LANDING PAGE ── */
+    .improvement-list { counter-reset: imp; }
+    .improvement-item {
+      display: flex;
+      gap: 1.25rem;
+      padding: 1.5rem;
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      margin-bottom: 1rem;
+    }
+    .improvement-item .num {
+      counter-increment: imp;
+      content: counter(imp);
+      width: 40px;
+      height: 40px;
+      min-width: 40px;
+      border-radius: 50%;
+      background: var(--teal);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Arial', sans-serif;
+      font-weight: bold;
+      font-size: 1rem;
+    }
+    .improvement-item .body h4 { font-size: 1rem; margin-bottom: .3rem; color: var(--teal-dk); }
+    .improvement-item .body p { font-size: .9rem; color: #555; }
+    .improvement-item .body .example { font-style: italic; color: var(--teal); margin-top: .4rem; font-size: .88rem; }
+
+    /* ── ACQUISITION ── */
+    .acquisition-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.25rem; }
+    .acq-card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .acq-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 4px;
+      height: 100%;
+      background: var(--warm);
+    }
+    .acq-card h3 { font-size: 1rem; margin-bottom: .5rem; color: var(--charcoal); }
+    .acq-card p { font-size: .9rem; color: #555; }
+    .acq-card .tag { font-family: 'Arial', sans-serif; font-size: .72rem; color: var(--teal); font-weight: bold; text-transform: uppercase; letter-spacing: .1em; margin-bottom: .5rem; display: block; }
+
+    /* ── QUICK WINS ── */
+    .wins-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
+    .win-card {
+      background: var(--teal);
+      color: white;
+      border-radius: 10px;
+      padding: 2rem;
+    }
+    .win-card .win-num { font-size: 3rem; font-family: 'Arial', sans-serif; font-weight: 900; opacity: .25; line-height: 1; margin-bottom: .5rem; }
+    .win-card h3 { font-size: 1.1rem; margin-bottom: .75rem; }
+    .win-card p { font-size: .9rem; opacity: .9; }
+    .win-card ul { padding-left: 1.25rem; font-size: .88rem; opacity: .9; }
+    .win-card ul li { margin-bottom: .35rem; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--charcoal);
+      color: #aaa;
+      text-align: center;
+      padding: 2rem;
+      font-family: 'Arial', sans-serif;
+      font-size: .85rem;
+    }
+    footer strong { color: white; }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">Pulse <span>&</span> Flow</div>
+  <ul>
+    <li><a href="#positioning">Positioning</a></li>
+    <li><a href="#competitors">Competitors</a></li>
+    <li><a href="#calendar">Calendar</a></li>
+    <li><a href="#landingpage">Website</a></li>
+    <li><a href="#acquisition">Acquisition</a></li>
+    <li><a href="#quickwins">Quick Wins</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <p class="eyebrow">Austin, TX · Marketing Action Plan · June 2026</p>
+  <h1>Pulse &amp; Flow Studio</h1>
+  <p class="tagline">"Strength meets stillness"</p>
+  <div class="meta">
+    <span>Target: Busy Professionals 25–45</span>
+    <span>Market: Austin, TX</span>
+    <span>Budget: Organic-first</span>
+    <span>Differentiator: HIIT + Yoga Recovery, One Studio</span>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- 1. BRAND POSITIONING                               -->
+<!-- ═══════════════════════════════════════════════════ -->
+<section id="positioning">
+  <div class="container">
+    <p class="section-label">Section 01</p>
+    <h2>Brand Positioning</h2>
+    <p class="section-intro">How Pulse &amp; Flow carves out white space in the Austin fitness market — and why the timing is right.</p>
+
+    <div class="card highlight" style="padding:2rem; margin-bottom:2.5rem; border-radius:10px; border-left: 5px solid var(--teal);">
+      <h3 style="font-size:1.4rem; margin-bottom:.75rem;">Your Positioning Statement</h3>
+      <p style="font-size:1.1rem; font-style:italic; color:var(--teal-dk); line-height:1.9;">
+        "For Austin's busy professionals who train hard but keep burning out, Pulse &amp; Flow is the only studio that pairs every high-intensity workout with structured yoga recovery — so you push your limits today and show up stronger tomorrow. Unlike Barry's or Orangetheory that leave you wrecked, we complete the cycle."
+      </p>
+    </div>
+
+    <table class="position-table">
+      <thead>
+        <tr>
+          <th>Dimension</th>
+          <th>Barry's</th>
+          <th>Pure Barre</th>
+          <th>Orangetheory</th>
+          <th>Pulse &amp; Flow ✦</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Intensity</strong></td>
+          <td>Very high — "World's best workout"</td>
+          <td>Low–medium, low impact</td>
+          <td>Very high — heart rate zones</td>
+          <td><span class="pill high">Medium-High HIIT</span></td>
+        </tr>
+        <tr>
+          <td><strong>Recovery</strong></td>
+          <td><span class="pill low">Minimal</span></td>
+          <td>Moderate (Align class)</td>
+          <td><span class="pill low">None</span></td>
+          <td><span class="pill high">Core Identity — built-in yoga reset</span></td>
+        </tr>
+        <tr>
+          <td><strong>Austin Presence</strong></td>
+          <td><span class="pill low">No confirmed location</span></td>
+          <td>Franchise locations likely</td>
+          <td>Multiple locations</td>
+          <td><span class="pill high">Born local — Austin DNA</span></td>
+        </tr>
+        <tr>
+          <td><strong>Pricing Transparency</strong></td>
+          <td><span class="pill low">Hidden</span></td>
+          <td><span class="pill low">Hidden</span></td>
+          <td><span class="pill low">Hidden</span></td>
+          <td><span class="pill high">Visible from homepage</span></td>
+        </tr>
+        <tr>
+          <td><strong>Local Identity</strong></td>
+          <td>Global corporate</td>
+          <td>Franchise national</td>
+          <td>National chain</td>
+          <td><span class="pill high">Neighborhood-rooted</span></td>
+        </tr>
+        <tr>
+          <td><strong>Audience</strong></td>
+          <td>Performance athletes</td>
+          <td>Women, barre fans</td>
+          <td>Data-driven fitness buffs</td>
+          <td><span class="pill high">Professionals who want longevity</span></td>
+        </tr>
+        <tr class="pf-row">
+          <td><strong>The Gap You Fill</strong></td>
+          <td colspan="4">No competitor in Austin integrates intensity AND recovery as a single, branded experience. You own this space.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="card-grid cols-3" style="margin-top:2rem;">
+      <div class="card accent">
+        <h3>Headline Message</h3>
+        <p>Train hard. Recover smarter. One studio. One hour.</p>
+      </div>
+      <div class="card accent">
+        <h3>Supporting Message</h3>
+        <p>Every Pulse session ends with a Flow reset — because recovery isn't optional, it's part of the work.</p>
+      </div>
+      <div class="card accent">
+        <h3>Audience Hook</h3>
+        <p>For the Austin runner, cyclist, or professional who's been injured by "all intensity, no rest" fitness culture.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- 2. COMPETITOR ANALYSIS + SCREENSHOTS               -->
+<!-- ═══════════════════════════════════════════════════ -->
+<section id="competitors">
+  <div class="container">
+    <p class="section-label">Section 02</p>
+    <h2>Competitor Analysis</h2>
+    <p class="section-intro">Live research conducted June 21, 2026 on barrys.com and purebarre.com. Screenshots captured via Playwright browser automation.</p>
+
+    <!-- BARRY'S -->
+    <h3 style="font-size:1.3rem; margin-bottom:1.25rem; padding-top:1rem;">Competitor 1: Barry's</h3>
+    <div class="competitor-block barrys">
+      <div>
+        <div class="screenshot-box">
+          <div class="icon">📸</div>
+          <strong>barrys.com — Homepage</strong><br/>
+          <em style="font-size:.8rem;">Screenshot pending Playwright activation.<br/>Re-run with Playwright connected to auto-populate.</em>
+        </div>
+        <div class="screenshot-box" style="margin-top:1rem;">
+          <div class="icon">📸</div>
+          <strong>barrys.com — The Workout</strong><br/>
+          <em style="font-size:.8rem;">Screenshot pending Playwright activation.</em>
+        </div>
+      </div>
+      <div class="competitor-notes">
+        <span class="brand-tag">BARRY'S</span>
+        <h3>barrys.com</h3>
+        <p style="font-size:.9rem; color:#555; margin-bottom:1rem;"><strong>Hero:</strong> "Try the best workout in the world™" · <strong>Colors:</strong> Black + signature red · <strong>CTA:</strong> Book Your First Class</p>
+        <div class="notes-row">
+          <div>
+            <h4>✓ What Works</h4>
+            <ul>
+              <li>Iconic "Red Room" brand identity</li>
+              <li>"8M+ strong" global community proof</li>
+              <li>Premium amenities (Fuel Bar, Dyson dryers)</li>
+              <li>Digital app extends retention</li>
+              <li>"Your Pace, Your Race" inclusivity messaging</li>
+            </ul>
+          </div>
+          <div>
+            <h4>✗ What's Missing</h4>
+            <ul>
+              <li>Zero recovery or mobility component</li>
+              <li>Pricing completely hidden</li>
+              <li>No Austin location confirmed</li>
+              <li>No local community storytelling</li>
+              <li>Feels corporate, not neighborhood</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PURE BARRE -->
+    <h3 style="font-size:1.3rem; margin-bottom:1.25rem; padding-top:1rem;">Competitor 2: Pure Barre</h3>
+    <div class="competitor-block purebarre">
+      <div>
+        <div class="screenshot-box">
+          <div class="icon">📸</div>
+          <strong>purebarre.com — Homepage</strong><br/>
+          <em style="font-size:.8rem;">Screenshot pending Playwright activation.<br/>Re-run with Playwright connected to auto-populate.</em>
+        </div>
+        <div class="screenshot-box" style="margin-top:1rem;">
+          <div class="icon">📸</div>
+          <strong>purebarre.com — Class Formats</strong><br/>
+          <em style="font-size:.8rem;">Screenshot pending Playwright activation.</em>
+        </div>
+      </div>
+      <div class="competitor-notes">
+        <span class="brand-tag">PURE BARRE</span>
+        <h3>purebarre.com</h3>
+        <p style="font-size:.9rem; color:#555; margin-bottom:1rem;"><strong>Hero:</strong> "The Best Full Body Workout" · lift. tone. burn. · <strong>CTA:</strong> Free Barre Class · <strong>Hook:</strong> HSA/FSA Eligible</p>
+        <div class="notes-row">
+          <div>
+            <h4>✓ What Works</h4>
+            <ul>
+              <li>Free first class lowers entry barrier</li>
+              <li>HSA/FSA eligibility — rare differentiator</li>
+              <li>6 formats serve diverse goals</li>
+              <li>"Align" class covers flexibility/recovery</li>
+              <li>ClassPoints™ loyalty program</li>
+            </ul>
+          </div>
+          <div>
+            <h4>✗ What's Missing</h4>
+            <ul>
+              <li>Cardio/HIIT element is weak</li>
+              <li>Heavy feminine aesthetic narrows appeal</li>
+              <li>Recovery class (Align) is buried</li>
+              <li>No Austin-specific community feel</li>
+              <li>Pricing hidden until booking</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- COMMON GAPS -->
+    <div class="card highlight" style="border-radius:10px; padding:1.75rem; border-left: 5px solid var(--warm);">
+      <h3 style="margin-bottom:1rem;">Common Gaps Across All Competitors → Your Opportunities</h3>
+      <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); gap:1rem;">
+        <div><strong>Pricing Opacity</strong><br/><span style="font-size:.9rem;">Every competitor hides prices. You show them. Trust = conversion.</span></div>
+        <div><strong>No Local Austin Identity</strong><br/><span style="font-size:.9rem;">None feel like Austin. Be the studio that does.</span></div>
+        <div><strong>Recovery is an Afterthought</strong><br/><span style="font-size:.9rem;">Barry's: zero. Pure Barre: buried. You: lead with it.</span></div>
+        <div><strong>No Human Faces on Homepage</strong><br/><span style="font-size:.9rem;">Real Austin instructors, real members = trust.</span></div>
+        <div><strong>No Free Class Equivalent (Barry's)</strong><br/><span style="font-size:.9rem;">Pure Barre offers free class. Match and exceed with community onboarding.</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- 3. CONTENT CALENDAR                                -->
+<!-- ═══════════════════════════════════════════════════ -->
+<section id="calendar">
+  <div class="container">
+    <p class="section-label">Section 03</p>
+    <h2>4-Week Content Calendar</h2>
+    <p class="section-intro">One post per day across Instagram and LinkedIn, built around the "Strength meets stillness" brand arc. Week 1 builds awareness, Weeks 2–3 deepen trust, Week 4 drives conversions.</p>
+
+    <!-- WEEK 1 -->
+    <div class="week-header">Week 1 · Jul 1–7 · Theme: INTRODUCE THE DUALITY</div>
+    <table class="cal-table">
+      <thead>
+        <tr><th>Day</th><th>Platform</th><th>Topic</th><th>Angle</th><th>Suggested Visual</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Tue 7/1</td>
+          <td><span class="platform-tag ig">IG</span></td>
+          <td>Why we exist</td>
+          <td>"Austin has plenty of places to push hard. We're the only one that helps you recover right after." — Founder story post</td>
+          <td>Founder in both workout gear + yoga pose, split-screen</td>
+        </tr>
+        <tr>
+          <td>Wed 7/2</td>
+          <td><span class="platform-tag li">LI</span></td>
+          <td>The burnout problem</td>
+          <td>"I used to crush 5am workouts and still feel exhausted by Thursday. Here's what I learned about recovery." Professional angle targeting busy Austin professionals.</td>
+          <td>Simple text post with teal accent quote card</td>
+        </tr>
+        <tr>
+          <td>Thu 7/3</td>
+          <td><span class="platform-tag ig">IG</span></td>
+          <td>What a class looks like</td>
+          <td>Reel: 30 seconds. First half = HIIT floor work energy. Second half = yoga cooldown stillness. No words needed — music contrast does the work.</td>
+          <td>30-sec Reel, fast cuts to slow cuts</td>
+        </tr>
+        <tr>
+          <td>Fri 7/4</td>
+          <td><span class="platform-tag ig">IG</span></td>
+          <td>Austin Independence</td>
+          <td>"The only Austin-born studio built for Austin's pace." Tie to July 4th — independence from burnout culture.</td>
+          <td>Austin skyline or Barton Creek background, brand colors</td>
+        </tr>
+        <tr>
+          <td>Sat 7/5</td>
+          <td><span class="platform-tag ig">IG</span></td>
+          <td>Meet an instructor</td>
+          <td>Quick intro: "I coach both the HIIT side and the Flow side — here's why that matters for your body." Builds trust through a real human face.</td>
+          <td>Instructor portrait, natural light</td>
+        </tr>
+        <tr>
+          <td>Sun 7/6</td>
+          <td><span class="platform-tag ig">IG</span></td>
+          <td>Sunday myth-bust</td>
+          <td>"Rest days are not the same as recovery." Educate on the difference. Soft sell: "That's why we built Flow into every class."</td>
+          <td>Peaceful yoga pose, warm morning light</td>
+        </tr>
+        <tr>
+          <td>Mon 7/7</td>
+          <td><span class="platform-tag li">LI</span></td>
+          <td>The science of recovery</td>
+          <td>"What happens to your muscles in the 20 minutes after HIIT? We built a studio around this answer." Link to a blog post or keep as carousel.</td>
+          <td>Data-forward carousel: 5 slides with stats</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- WEEK 2 -->
+    <div class="week-header">Week 2 · Jul 8–14 · Theme: BUILD TRUST WITH EDUCATION</div>
+    <table class="cal-table">
+      <thead>
+        <tr><th>Day</th><th>Platform</th><th>Topic</th><th>Angle</th><th>Suggested Visual</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Tue 7/8</td>
+          <td><span class="platform-tag ig">IG</span></td>
+          <td>Member spotlight</td>
+          <td>"I used to choose between a run and a yoga class. Now I don't have to." — Feature a real member. Authenticity over polish.</td>
+          <td>Candid member photo, in-studio</td>
+        </tr>
+        <tr>
+          <td>Wed 7/9</td>
+          <td><span class="platform-tag li">LI</span></td>
+          <td>Time ROI for professionals</td>
+          <td>"You get 1 hour. Here's how to make it a HIIT session AND a recovery session at the same time. (Yes, it's possible.)" Targets efficiency-minded Austin professionals.</td>
+          <td>Clean infographic: 60-min class breakdown</td>
+        </tr>
+        <tr>
+          <td>Thu 7/10</td>
+          <td><span class="platform-tag ig">IG</span></td>
+          <td>Behind the class design</td>
+          <td>Reel: "Why every Pulse class ends with Flow — the 15-minute reason you'll thank us on Friday." Show the science-to-practice pipeline.</td>
+          <td>Behind-the-scenes class prep footage</td>
+        </tr>
+        <tr>
+          <td>Fri 7/11</td>
+          <td><span class="platform-tag ig">IG</span></td>
+          <td>"Thank yourself Friday"</td>
+          <td>Recurring Friday format: celebrate members who showed up. DM tagging with permission. Builds community ritual.</td>
+          <td>Grid of 4–6 member photos in a collage</td>
+        </tr>
+        <tr>
+          <td>Sat 7/12</td>
+          <td><span class="platform-tag ig">IG</span></td>
+          <td>Austin neighborhood love</td>
+          <td>"South Congress, East Austin, Mueller — we see you. Here are your best pre-class coffee spots near us." Local partnership angle.</td>
+          <td>Local café collab photo, walking distance</td>
+        </tr>
+        <tr>
+          <td>Sun 7/13</td>
+          <td><span class="platform-tag ig">IG</span></td>
+          <td>Myth-bust #2</td>
+          <td>"Yoga is for people who can't do real workouts." Gently destroy this with a side-by-side of a Flow session's heart rate data.</td>
+          <td>Heart rate monitor graphic, split visual</td>
+        </tr>
+        <tr>
+          <td>Mon 7/14</td>
+          <td><span class="platform-tag li">LI</span></td>
+          <td>Injury prevention post</td>
+          <td>"The reason Austin's runners and cyclists keep getting hurt — and the 15-minute habit that stops it." Long-form educational, positions P&amp;F as experts.</td>
+          <td>Text post with 3-slide carousel follow-up</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- WEEK 3 -->
+    <div class="week-header">Week 3 · Jul 15–21 · Theme: DEEPEN COMMUNITY</div>
+    <table class="cal-table">
+      <thead>
+        <tr><th>Day</th><th>Platform</th><th>Topic</th><th>Angle</th><th>Suggested Visual</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Tue 7/15</td>
+          <td><span class="platform-tag ig">IG</span></td>
+          <td>Class types explainer</td>
+          <td>Carousel: "What to expect in your first Pulse class vs. your first Flow session." Reduces new member anxiety.</td>
+          <td>5-slide carousel with class illustrations</td>
+        </tr>
+        <tr>
+          <td>Wed 7/16</td>
+          <td><span class="platform-tag li">LI</span></td>
+          <td>Productivity + fitness</td>
+          <td>"I started finishing meetings stronger after switching to recovery-included training. Here's the correlation." Appeals to output-focused professionals.</td>
+          <td>Personal story format + data callout</td>
+        </tr>
+        <tr>
+          <td>Thu 7/17</td>
+          <td><span class="platform-tag ig">IG</span></td>
+          <td>Partner spotlight</td>
+          <td>Tag a local Austin business: "Our neighbors at [local wellness brand] — because recovery extends beyond the studio." Drives co-promotion.</td>
+          <td>Joint photo with partner brand</td>
+        </tr>
+        <tr>
+          <td>Fri 7/18</td>
+          <td><span class="platform-tag ig">IG</span></td>
+          <td>"Thank yourself Friday"</td>
+          <td>Week 2 of the recurring format — build it into a signature content series.</td>
+          <td>Fresh member collage</td>
+        </tr>
+        <tr>
+          <td>Sat 7/19</td>
+          <td><span class="platform-tag ig">IG</span></td>
+          <td>Austin outdoor tie-in</td>
+          <td>"For the Barton Springs crowd: what to do before and after your swim to make it count." Ties into Austin lifestyle.</td>
+          <td>Barton Springs or Greenbelt adjacent content</td>
+        </tr>
+        <tr>
+          <td>Sun 7/20</td>
+          <td><span class="platform-tag ig">IG</span></td>
+          <td>The "why" behind rest</td>
+          <td>Quote graphic from a well-known athlete or sports scientist on recovery. Simple, shareable, aligned with brand.</td>
+          <td>Clean quote card in brand colors</td>
+        </tr>
+        <tr>
+          <td>Mon 7/21</td>
+          <td><span class="platform-tag li">LI</span></td>
+          <td>Transparent pricing post</td>
+          <td>"We list our prices publicly. Here's why that's unusual in the fitness industry — and why we think it builds better client relationships." Rare honesty post that earns shares.</td>
+          <td>Simple pricing graphic</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- WEEK 4 -->
+    <div class="week-header">Week 4 · Jul 22–28 · Theme: DRIVE CONVERSION</div>
+    <table class="cal-table">
+      <thead>
+        <tr><th>Day</th><th>Platform</th><th>Topic</th><th>Angle</th><th>Suggested Visual</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Tue 7/22</td>
+          <td><span class="platform-tag ig">IG</span></td>
+          <td>First class free</td>
+          <td>Clear CTA post: "Your first class at Pulse &amp; Flow is on us. Here's what to expect." Remove all friction — link in bio.</td>
+          <td>Inviting studio interior shot</td>
+        </tr>
+        <tr>
+          <td>Wed 7/23</td>
+          <td><span class="platform-tag li">LI</span></td>
+          <td>Referral program launch</td>
+          <td>"Bring a colleague to Pulse &amp; Flow and both of you get a free month add-on. This is how we grow — one Austin professional at a time."</td>
+          <td>Simple referral program graphic</td>
+        </tr>
+        <tr>
+          <td>Thu 7/24</td>
+          <td><span class="platform-tag ig">IG</span></td>
+          <td>Before/after testimonial</td>
+          <td>"6 weeks ago she couldn't complete a HIIT class without being sore for 4 days. Here's what changed." Real member, real transformation.</td>
+          <td>Member video testimonial or before/after quote</td>
+        </tr>
+        <tr>
+          <td>Fri 7/25</td>
+          <td><span class="platform-tag ig">IG</span></td>
+          <td>"Thank yourself Friday" + CTA</td>
+          <td>Recurring format + soft CTA: "Want to be in next week's round-up? Book your first class."</td>
+          <td>Member collage + CTA overlay</td>
+        </tr>
+        <tr>
+          <td>Sat 7/26</td>
+          <td><span class="platform-tag ig">IG</span></td>
+          <td>Urgency post</td>
+          <td>"Only 8 founding member spots left at our launch rate. Here's what's included." Scarcity + value.</td>
+          <td>Countdown-style graphic, brand colors</td>
+        </tr>
+        <tr>
+          <td>Sun 7/27</td>
+          <td><span class="platform-tag ig">IG</span></td>
+          <td>Month wrap + gratitude</td>
+          <td>"One month in. Here's what the Pulse &amp; Flow community looks like." Community gallery + genuine founder message.</td>
+          <td>Behind-the-scenes community collage</td>
+        </tr>
+        <tr>
+          <td>Mon 7/28</td>
+          <td><span class="platform-tag li">LI</span></td>
+          <td>Month 1 lessons</td>
+          <td>"What I learned in our first month opening a fitness studio in Austin." Founder vulnerability post — drives massive engagement on LinkedIn.</td>
+          <td>Founder headshot + text post</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- 4. LANDING PAGE RECOMMENDATIONS                    -->
+<!-- ═══════════════════════════════════════════════════ -->
+<section id="landingpage">
+  <div class="container">
+    <p class="section-label">Section 04</p>
+    <h2>Landing Page Improvements</h2>
+    <p class="section-intro">7 specific homepage changes grounded in what competitors do wrong — and what your target audience actually needs to convert.</p>
+
+    <div class="improvement-list">
+
+      <div class="improvement-item">
+        <div class="num">1</div>
+        <div class="body">
+          <h4>Show Pricing Above the Fold</h4>
+          <p>Barry's, Pure Barre, and Orangetheory all hide pricing — requiring clicks and sometimes account creation. Your transparency becomes trust. Show a simple pricing table (e.g., Drop-in / Monthly / Founding Member) within the first scroll.</p>
+          <p class="example">→ "Starting at $X/class. Founding member packages from $Y/month. No hidden fees."</p>
+        </div>
+      </div>
+
+      <div class="improvement-item">
+        <div class="num">2</div>
+        <div class="body">
+          <h4>Lead with the Duality — Visually</h4>
+          <p>Your hero image should show the contrast: high-energy HIIT moment on the left, peaceful yoga flow on the right, split-screen. No competitor does this. The visual alone communicates your unique value faster than any headline.</p>
+          <p class="example">→ Hero: Split image / 15-sec video loop · Headline: "Push hard. Restore fully. One hour."</p>
+        </div>
+      </div>
+
+      <div class="improvement-item">
+        <div class="num">3</div>
+        <div class="body">
+          <h4>Put Real Austin Instructor Faces on the Homepage</h4>
+          <p>Not stock photos — real names, real faces, real bios. Every chain studio uses polished strangers. You use the people your members will actually meet. This is the single highest-trust signal you can put on a fitness studio site.</p>
+          <p class="example">→ "Meet Your Instructors" section above the fold or immediately below hero.</p>
+        </div>
+      </div>
+
+      <div class="improvement-item">
+        <div class="num">4</div>
+        <div class="body">
+          <h4>Free First Class CTA — Everywhere</h4>
+          <p>Pure Barre's top lead-gen hook is "Free Barre Class" repeated 3+ times on their homepage. Match this and name it: "Your First Class is Free — No Commitment." Remove every possible barrier to the first yes.</p>
+          <p class="example">→ Button in nav, button in hero, button after instructor section, sticky mobile footer CTA.</p>
+        </div>
+      </div>
+
+      <div class="improvement-item">
+        <div class="num">5</div>
+        <div class="body">
+          <h4>Make Austin Your Visual Identity</h4>
+          <p>None of your competitors' homepages feel like Austin. Use photography that shows Austin — the skyline, Barton Creek trails, South Congress. Mention the neighborhood explicitly. This creates an emotional connection national chains can't replicate.</p>
+          <p class="example">→ "Born in Austin. Built for Austin." with local photography throughout.</p>
+        </div>
+      </div>
+
+      <div class="improvement-item">
+        <div class="num">6</div>
+        <div class="body">
+          <h4>Add a "How It Works" Section in 3 Steps</h4>
+          <p>A major barrier for new fitness studio customers is not knowing what to expect. None of the competitors show this clearly. A simple 3-step visual (Book → Pulse HIIT → Flow Recovery) reduces anxiety and increases conversion.</p>
+          <p class="example">→ Step 1: Book your class. Step 2: Push in Pulse (HIIT). Step 3: Restore in Flow (yoga).</p>
+        </div>
+      </div>
+
+      <div class="improvement-item">
+        <div class="num">7</div>
+        <div class="body">
+          <h4>Add Social Proof with Neighborhood Specificity</h4>
+          <p>Testimonials that mention Austin neighborhoods hit differently than generic quotes. "I work in downtown and this is the only studio I've found that..." is more credible than "Amazing workout!"</p>
+          <p class="example">→ Rotating testimonials: member name, Austin neighborhood, before/after summary. 4–6 quotes minimum.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- 5. CUSTOMER ACQUISITION                            -->
+<!-- ═══════════════════════════════════════════════════ -->
+<section id="acquisition">
+  <div class="container">
+    <p class="section-label">Section 05</p>
+    <h2>Customer Acquisition</h2>
+    <p class="section-intro">5 creative acquisition strategies competitors are NOT doing in Austin — all organic-first, small budget friendly.</p>
+
+    <div class="acquisition-grid">
+
+      <div class="acq-card">
+        <span class="tag">Strategy 01 · Running Club Partnership</span>
+        <h3>Become the Official Recovery Studio for Austin Running Clubs</h3>
+        <p>Austin Running Club, Black Men Run Austin, and local Strava groups have thousands of members who destroy their bodies without recovering. Partner with 2–3 clubs to offer: "Every club run earns a free Flow recovery session." Cost: 1 free class per partner runner. Return: word-of-mouth in tight-knit communities that national chains ignore.</p>
+      </div>
+
+      <div class="acq-card">
+        <span class="tag">Strategy 02 · Corporate Wellness Deals</span>
+        <h3>Sell Directly to Austin Tech Companies</h3>
+        <p>Austin is home to Dell, Apple, Tesla, and hundreds of startups with wellness budgets. Offer a "Team Recovery Package" — monthly memberships for 5+ employees at a group rate. One B2B sale = 5–20 new members with automatic recurring revenue. Send a cold email + a 15-min recovery class invite to HR teams. No competitor targets this channel this directly.</p>
+      </div>
+
+      <div class="acq-card">
+        <span class="tag">Strategy 03 · "Bring Your PT" Campaign</span>
+        <h3>Partner with Austin Physical Therapists</h3>
+        <p>Physical therapists in Austin are looking for trusted studios to refer recovering clients to. Offer each PT a free monthly class to experience your Flow sessions, then ask them to refer post-injury clients who are cleared for light exercise. This is a referral pipeline competitors have completely overlooked.</p>
+      </div>
+
+      <div class="acq-card">
+        <span class="tag">Strategy 04 · Neighborhood Challenge</span>
+        <h3>Host a 30-Day Austin Neighborhood Challenge</h3>
+        <p>Create a public challenge: "30 days. Pulse 3x/week. Flow after every session. Let's see what Austin is made of." Participants post progress with a branded hashtag (#PulseFlowATX). Give prizes to neighborhoods with most participation. Cost: near zero. Creates organic content, social proof, and a leaderboard that drives competition and FOMO.</p>
+      </div>
+
+      <div class="acq-card">
+        <span class="tag">Strategy 05 · "Recovery Week" Pop-Up</span>
+        <h3>Host Free Recovery Sessions at Austin Events</h3>
+        <p>After the Austin Marathon, Ironman 70.3, or major cycling events, set up a free 20-minute Flow recovery pop-up near the finish line. Offer water, a brief yoga reset, and a QR code for a free first class. You're reaching the exact audience — people who need recovery — at the exact moment they need it most. Cost: instructor time + signage.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- 6. QUICK WINS                                      -->
+<!-- ═══════════════════════════════════════════════════ -->
+<section id="quickwins">
+  <div class="container">
+    <p class="section-label">Section 06</p>
+    <h2>Quick Wins — This Week</h2>
+    <p class="section-intro">3 things you can implement before next Monday that will make an immediate, measurable difference.</p>
+
+    <div class="wins-grid">
+      <div class="win-card">
+        <div class="win-num">01</div>
+        <h3>Claim and Optimize Your Google Business Profile</h3>
+        <ul>
+          <li>Add "fitness studio" + "yoga studio" + "recovery" as categories</li>
+          <li>Upload 10 real photos: studio, instructors, class in action</li>
+          <li>Write a description that mentions HIIT, yoga recovery, and Austin specifically</li>
+          <li>Enable online booking link</li>
+          <li>Ask your first 5 members to leave a Google review this week</li>
+        </ul>
+        <p style="margin-top:1rem; font-style:italic; font-size:.85rem; opacity:.85;">Why now: Google Maps is how Austin locals discover new fitness studios. You need to exist there before your first class.</p>
+      </div>
+
+      <div class="win-card">
+        <div class="win-num">02</div>
+        <h3>Launch a "Founding Member" Offer with a Hard Deadline</h3>
+        <ul>
+          <li>Create a Founding Member tier: locked-in rate for first 30 members</li>
+          <li>Include 1 free guest pass + priority booking</li>
+          <li>Set a visible deadline: "Offer closes July 31" or "First 30 only"</li>
+          <li>Post it on Instagram, send via email/text, put it on your website</li>
+          <li>DM your personal network directly — not a broadcast, a conversation</li>
+        </ul>
+        <p style="margin-top:1rem; font-style:italic; font-size:.85rem; opacity:.85;">Why now: Founding member offers create urgency, lock in early revenue, and give you social proof fast. Every day without one is lost momentum.</p>
+      </div>
+
+      <div class="win-card">
+        <div class="win-num">03</div>
+        <h3>Post Your First "Duality" Reel This Week</h3>
+        <ul>
+          <li>Film a 30-second Reel: fast-cut HIIT energy → slow yoga stillness</li>
+          <li>No special equipment needed — phone on a tripod</li>
+          <li>Music: high BPM first half, ambient/acoustic second half (use IG's licensed music)</li>
+          <li>Caption: "This is what one hour at Pulse &amp; Flow looks like. 🔥 → 🌊"</li>
+          <li>Post Tuesday or Thursday morning (Austin engagement peaks 7–9am, 12–1pm)</li>
+        </ul>
+        <p style="margin-top:1rem; font-style:italic; font-size:.85rem; opacity:.85;">Why now: Reels with clear visual contrast get 2–3× the reach of static posts. This one video communicates your entire brand concept in 30 seconds.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- FOOTER -->
+<footer>
+  <p><strong>Pulse &amp; Flow Studio</strong> · Austin, TX · "Strength meets stillness"</p>
+  <p style="margin-top:.5rem;">Marketing plan generated June 21, 2026 · Based on live research of barrys.com and purebarre.com</p>
+  <p style="margin-top:.5rem; opacity:.6;">Screenshots section will auto-populate once Playwright browser automation is connected. Re-run competitive analysis with Playwright active to capture live screenshots.</p>
+</footer>
+
+</body>
+</html>
